@@ -11,6 +11,10 @@ public class Transaction {
         this.amount = amount;
     }
 
+    static Transaction transactionWith(Clock clock,int amount) {
+        return new Transaction(clock.today(), amount);
+    }
+
     public LocalDate date() {
         return date;
     }

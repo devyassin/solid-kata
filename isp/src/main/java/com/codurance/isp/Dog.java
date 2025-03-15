@@ -1,6 +1,6 @@
 package com.codurance.isp;
 
-public class Dog implements Animal , IDog {
+public class Dog implements RunningAnimal, BarkingAnimal {
 
     @Override
     public void run() {

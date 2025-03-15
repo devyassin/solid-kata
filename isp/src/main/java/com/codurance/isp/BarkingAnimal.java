@@ -1,5 +1,5 @@
 package com.codurance.isp;
 
-public interface IDog {
+public interface BarkingAnimal {
     void bark();
 }

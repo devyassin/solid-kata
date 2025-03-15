@@ -1,6 +1,7 @@
 package com.codurance.srp;
 
 
+import static com.codurance.srp.Transaction.transactionWith;
 
 public class AccountService {
 
@@ -8,38 +9,27 @@ public class AccountService {
     private static final String DATE_FORMAT = "dd/MM/yyyy";
     private static final String AMOUNT_FORMAT = "#.00";
 
-    private TransactionRepository transactionRepository;
     private Clock clock;
     private PrinterService printerService;
+    private final TransactionService transactionService;
 
-    public AccountService(TransactionRepository transactionRepository,
+    public AccountService(TransactionService transactionService,
                           Clock clock,
                           PrinterService printerService) {
-        this.transactionRepository = transactionRepository;
+        this.transactionService = transactionService;
         this.clock = clock;
         this.printerService = printerService;
     }
 
     public void deposit(int amount) {
-        transactionRepository.add(transactionWith(amount));
+        transactionService.add(transactionWith(clock,amount));
     }
 
 
     public void withdraw(int amount) {
-        transactionRepository.add(transactionWith(-amount));
+        transactionService.add(transactionWith(clock,-amount));
     }
 
-
-
-
-    private Transaction transactionWith(int amount) {
-        return new Transaction(clock.today(), amount);
-    }
-
-
-    public void printStatement() {
-        printerService.printStatement();
-    }
 
 
 }
